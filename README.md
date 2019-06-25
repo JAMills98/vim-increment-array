@@ -19,6 +19,7 @@ ANY Language that formats arrays as:
 
 # What are the restrictions for now?
 Circa 2019-06-05, the current restrictions are:
+* INCREDIBLY VOLITILE, WRITES a file named "temp" as I current don't know how to write to a buffer or something along those lines
 * Bound to F5, requires grep and awk
 * CURRENTLY, CANNOT decrement values when an array element is removed, this will come after the Offset.
 * Assumes the Array starts on Line 1 (An offset needs to be added)

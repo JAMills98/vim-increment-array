@@ -1,0 +1,25 @@
+" THIS CODE IS AS IS AND I AM NOT RESPONSIBLE FOR POTENTIAL DATA LOSS OR CORRUPTION
+" THIS CODE RELIES ON CONTROL CODES, IF YOU CANNOT SEE THEM, RECREATE ACCORDING TO THE COMMENTED OUT LET, THE MAIN CODES ARE 18 (^R), 0 (^A), AND 24 (^X)
+" ADDITIONALLY, THIS WILL CREATE AN AINC_DUMMY FILE -> YOU MAY CHOOSE TO ADD A DELETE COMMAND AFTER
+
+" BE AWARE THIS ONLY WORKS ON ONE DIMENSIONAL ARRAYS WHERE THE ARRAY STARTS ON LINE 1 AND EACH ARRAY ENTRY IS ON A NEW LINE
+
+" AINC IS IN UNSAFE MODE, THIS MEANS PRESSING F5 or F6 AUTO ADDS THE ELEMENT; YOU CAN MASS SPAM UNDO TO PLAY IT SAFE
+" TO REMOVE THIS, REMOVE the execution at the end of the map, which is :%norm! @i/d<CR>
+
+" TO INCREMENT AN ARRAY, PRESS F5 to automatically make a new line and array entry called AINC_NEW, swap to the DUMMY FILE (Full of search queries), then MASS INCREMENT
+" TO DECREMENT AN ARRAY, PRESS F6 to automatically delete the selected line and decrement all numbers beyond that point!
+
+
+
+" XXX and especially TODO Some Time -> Make AINC's Initial Array finder better, currently it relies on the 1d array being 1 line per element starting on line 1
+" Where ^ is CTRL+V in INSERT MODE (To enter special chars
+" let @i = "vg_y:bn!\r\'\"/^<18>0\r^<0>:bn!\r"
+" let @d = "vg_y:bn!\r\'\"/^<18>0\r^<24>Avi:bn!\r"
+
+" AINC is @i,
+ADEC is @d -> Use F5 to create a new AINC Element in an Array
+let @i = "vg_y:bn!\r\'\"/0\r:bn!\r"
+let @d = "vg_y:bn!\r\'\"/0\r:bn!\r"
+map <F5> :let ainc_lineNumber=line(".")<CR>:let @l=ainc_lineNumber<CR>/=<CR>?<CR>b"+yiw:let ainc_varName = @+<CR>:@l<CR> t"AINC_NEW"<Esc>:execute ":! tr \' =.(){}+-/*,\\t\' '\\n' < % <bar> egrep -o \"".ainc_varName."\\[(.*?)\\]\" <bar> awk -F'[][]' '{if ($2+0 >=".ainc_lineNumber.") print \"".ainc_varName."[\"$2}' > ainc_DUMMY"<CR>:badd ainc_DUMMY<CR>:bn!<CR>:%norm! @i<CR>
+map <F6> :let ainc_lineNumber=line(".")-1<CR>:let @l=ainc_lineNumber<CR>/=<CR>?<CR>b"+yiw:let ainc_varName = @+<CR>:@l<CR>dd<Esc>:execute ":! tr ' =.(){}+-/*,\\t' '\n' < % <bar> egrep -o \"".ainc_varName."\\[(.*?)\\]\" <bar> awk -F'[][]' '{if ($2+1 >=".ainc_lineNumber.") print \"".ainc_varName."[\"$2}' > ainc_DUMMY"<CR>:badd ainc_DUMMY<CR>:bn!<CR>:%norm! @d<CR>:bn!<CR>:%norm! @d<CR>

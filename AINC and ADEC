@@ -23,5 +23,6 @@
 " BEGIN UNCOMMENTED
 let @i = "vg_y:bn!\r\'\"/0\r:bn!\r"
 let @d = "vg_y:bn!\r\'\"/0\r:bn!\r"
-map <F5> :let ainc_lineNumber=line(".")<CR>:let @l=ainc_lineNumber<CR>/=<CR>?<CR>b"+yiw:let ainc_varName = @+<CR>:@l<CR> t"AINC_NEW"<Esc>:execute ":! tr \' =.(){}+-/*,\\t\' '\\n' < % <bar> egrep -o \"".ainc_varName."\\[(.*?)\\]\" <bar> awk -F'[][]' '{if ($2+0 >=".ainc_lineNumber.") print \"".ainc_varName."[\"$2}' > ainc_DUMMY"<CR>:badd ainc_DUMMY<CR>:bn!<CR>:%norm! @i<CR>
-map <F6> :let ainc_lineNumber=line(".")-1<CR>:let @l=ainc_lineNumber<CR>/=<CR>?<CR>b"+yiw:let ainc_varName = @+<CR>:@l<CR>dd<Esc>:execute ":! tr ' =.(){}+-/*,\\t' '\n' < % <bar> egrep -o \"".ainc_varName."\\[(.*?)\\]\" <bar> awk -F'[][]' '{if ($2+1 >=".ainc_lineNumber.") print \"".ainc_varName."[\"$2}' > ainc_DUMMY"<CR>:badd ainc_DUMMY<CR>:bn!<CR>:%norm! @d<CR>:bn!<CR>:%norm! @d<CR>
+
+map <F5> :let ainc_lineNumber=line(".")<CR>:let @l=ainc_lineNumber<CR>/=<CR>?<CR>b"+yiw:let ainc_varName = @+<CR>:@l<CR> t"AINC_NEW"<Esc>:execute ":! tr \' =.(){}+-/*,\\t\' '\\n' < % <bar> egrep -o \"".ainc_varName."\\[(.*?)\\]\" <bar> awk -F'[][]' '{if ($2+0 >=".ainc_lineNumber.") print \"".ainc_varName."[\"$2}' > ainc_DUMMY"<CR>:badd ainc_DUMMY<CR>:bn!<CR>:%norm! @i<CR>:bn!<CR>
+map <F6> :let ainc_lineNumber=line(".")-1<CR>:let @l=ainc_lineNumber<CR>/=<CR>?<CR>b"+yiw:let ainc_varName = @+<CR>:@l<CR>dd<Esc>:execute ":! tr \' =.(){}+-/*,\\t\' '\\n' < % <bar> egrep -o \"".ainc_varName."\\[(.*?)\\]\" <bar> awk -F'[][]' '{if ($2+1 >=".ainc_lineNumber.") print \"".ainc_varName."[\"$2}' > ainc_DUMMY"<CR>:badd ainc_DUMMY<CR>:bn!<CR>:%norm! @d<CR>:bn!<CR>

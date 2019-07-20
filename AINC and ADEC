@@ -2,6 +2,8 @@
 " THIS CODE RELIES ON CONTROL CODES, IF YOU CANNOT SEE THEM, RECREATE ACCORDING TO THE COMMENTED OUT LET, THE MAIN CODES ARE 18 (^R), 0 (^A), AND 24 (^X)
 " ADDITIONALLY, THIS WILL CREATE AN AINC_DUMMY FILE -> YOU MAY CHOOSE TO ADD A DELETE COMMAND AFTER
 
+" >>>>>>>>>>>>>>>>>>>> PLEASE ADD UNCOMMENTED CODE TO .vimrc <<<<<<<<<<<<<<<<<<<<<<<<< "
+
 " BE AWARE THIS ONLY WORKS ON ONE DIMENSIONAL ARRAYS WHERE THE ARRAY STARTS ON LINE 1 AND EACH ARRAY ENTRY IS ON A NEW LINE
 
 " AINC IS IN UNSAFE MODE, THIS MEANS PRESSING F5 or F6 AUTO ADDS THE ELEMENT; YOU CAN MASS SPAM UNDO TO PLAY IT SAFE
@@ -17,8 +19,8 @@
 " let @i = "vg_y:bn!\r\'\"/^<18>0\r^<0>:bn!\r"
 " let @d = "vg_y:bn!\r\'\"/^<18>0\r^<24>Avi:bn!\r"
 
-" AINC is @i,
-ADEC is @d -> Use F5 to create a new AINC Element in an Array
+" AINC is @i, ADEC is @d -> Use F5 to create a new AINC Element in an Array
+" BEGIN UNCOMMENTED
 let @i = "vg_y:bn!\r\'\"/0\r:bn!\r"
 let @d = "vg_y:bn!\r\'\"/0\r:bn!\r"
 map <F5> :let ainc_lineNumber=line(".")<CR>:let @l=ainc_lineNumber<CR>/=<CR>?<CR>b"+yiw:let ainc_varName = @+<CR>:@l<CR> t"AINC_NEW"<Esc>:execute ":! tr \' =.(){}+-/*,\\t\' '\\n' < % <bar> egrep -o \"".ainc_varName."\\[(.*?)\\]\" <bar> awk -F'[][]' '{if ($2+0 >=".ainc_lineNumber.") print \"".ainc_varName."[\"$2}' > ainc_DUMMY"<CR>:badd ainc_DUMMY<CR>:bn!<CR>:%norm! @i<CR>
